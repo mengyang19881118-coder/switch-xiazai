@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NS Switch 游戏资源站 · 7124款游戏免费下载</title>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --bg2: #13161e;
+      --bg3: #1a1f2e;
+      --card: #161b27;
+      --card-hover: #1e2436;
+      --border: rgba(99,130,255,0.15);
+      --border2: rgba(99,130,255,0.25);
+      --accent: #6382ff;
+      --accent2: #8b5cf6;
+      --accent3: #06b6d4;
+      --red: #ef4444;
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --gold: #fbbf24;
+      --text: #e2e8f0;
+      --text2: #94a3b8;
+      --text3: #64748b;
+      --glass: rgba(22,27,39,0.85);
+      --shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ===== 背景装饰 ===== */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(99,130,255,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(139,92,246,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(6,182,212,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ===== 顶部导航 ===== */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 20px; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-decoration: none; cursor: pointer;
+    }
+    .logo-icon {
+      width: 32px; height: 32px;
+      font-size: 22px; line-height: 32px; text-align: center;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-stats {
+      display: flex; gap: 16px; align-items: center;
+      font-size: 13px; color: var(--text2);
+    }
+    .nav-stat { display: flex; align-items: center; gap: 6px; }
+    .nav-stat span { color: var(--accent); font-weight: 600; }
+
+    /* ===== 用户区域（导航栏） ===== */
+    .user-area { display: flex; align-items: center; gap: 12px; }
+
+    /* ===== 公告栏 ===== */
+    .announcement-bar {
+      position: relative; z-index: 99;
+      background: linear-gradient(90deg, rgba(99,130,255,0.12), rgba(139,92,246,0.12), rgba(99,130,255,0.12));
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 40px;
+      display: flex; align-items: center; gap: 10px;
+      animation: announcementSlide 0.5s ease;
+    }
+    .announcement-bar.nav-announcement {
+      flex: 1;
+      max-width: 520px;
+      margin: 0 16px;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(99,130,255,0.15);
+      background: linear-gradient(90deg, rgba(99,130,255,0.08), rgba(139,92,246,0.08));
+    }
+    .announcement-bar.nav-announcement .announcement-text {
+      font-size: 12px;
+    }
+    .announcement-bar.nav-announcement .announcement-close {
+      width: 20px; height: 20px; font-size: 11px;
+    }
+    @keyframes announcementSlide {
+      from { opacity: 0; transform: translateY(-100%); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .announcement-icon { font-size: 16px; flex-shrink: 0; }
+    .announcement-text {
+      flex: 1;
+      font-size: 13px; color: var(--text2);
+      overflow: hidden; white-space: nowrap;
+      display: flex; align-items: center; gap: 40px;
+    }
+    .announcement-text .marquee {
+      display: inline-block;
+      animation: marqueeScroll 20s linear infinite;
+      white-space: nowrap;
+    }
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .announcement-text .marquee:hover {
+      animation-play-state: paused;
+    }
+    .announcement-close {
+      flex-shrink: 0;
+      width: 24px; height: 24px;
+      border: none; background: rgba(255,255,255,0.06);
+      color: var(--text3); font-size: 12px;
+      border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .announcement-close:hover {
+      background: rgba(255,255,255,0.12); color: var(--text);
+    }
+    .points-badge {
+      display: flex; align-items: center; gap: 4px;
+      padding: 4px 10px; border-radius: 20px;
+      background: rgba(99,130,255,0.12); border: 1px solid rgba(99,130,255,0.2);
+      font-size: 13px; color: var(--accent); font-weight: 600;
+    }
+    .vip-badge {
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    }
+    .vip-badge.svip {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #1a1f2e;
+    }
+    .vip-badge.vip {
+      background: rgba(139,92,246,0.2);
+      color: #c4b5fd;
+    }
+    .nav-btn {
+      padding: 6px 14px; border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--card); color: var(--text2);
+      cursor: pointer; font-size: 13px;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .nav-btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-color: transparent; color: #fff; font-weight: 600;
+    }
+    .nav-btn.primary:hover { opacity: 0.9; }
+
+    /* ===== 英雄区 ===== */
+    .hero {
+      position: relative; z-index: 1;
+      padding: 60px 24px 40px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 800; line-height: 1.2;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 16px; color: var(--text2); margin-bottom: 32px;
+      max-width: 560px; margin-left: auto; margin-right: auto;
+    }
+
+    /* ===== 搜索框 ===== */
+    .search-wrap {
+      max-width: 640px; margin: 0 auto 16px;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      padding: 16px 56px 16px 20px;
+      background: var(--card);
+      border: 1.5px solid var(--border2);
+      border-radius: 16px;
+      color: var(--text); font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(99,130,255,0.15);
+    }
+    .search-input::placeholder { color: var(--text3); }
+    .search-icon {
+      position: absolute; right: 18px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text3); font-size: 20px; pointer-events: none;
+    }
+    .search-clear {
+      position: absolute; right: 50px; top: 50%;
+      transform: translateY(-50%);
+      background: none; border: none; color: var(--text3);
+      cursor: pointer; font-size: 18px; display: none;
+      padding: 4px; border-radius: 50%;
+      transition: color 0.2s;
+    }
+    .search-clear:hover { color: var(--text); }
+
+    /* ===== 筛选栏 ===== */
+    .filter-bar {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 24px 24px;
+      max-width: 1400px; margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .filter-label { font-size: 13px; color: var(--text3); }
+    .filter-btn {
+      padding: 7px 16px; border-radius: 20px;
+      border: 1.5px solid var(--border);
+      background: var(--card); color: var(--text2);
+      cursor: pointer; font-size: 13px;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-color: transparent; color: #fff; font-weight: 600;
+    }
+
+    /* ===== 结果信息条 ===== */
+    .result-bar {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px 16px;
+      max-width: 1400px; margin: 0 auto;
+      font-size: 13px; color: var(--text2);
+      flex-wrap: wrap; gap: 8px;
+    }
+    .result-count strong { color: var(--accent); }
+    .sort-select {
+      padding: 6px 12px; border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card); color: var(--text2);
+      font-size: 13px; cursor: pointer; outline: none;
+    }
+
+    /* ===== 游戏网格 ===== */
+    .games-grid {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-auto-rows: 1fr;
+      gap: 12px;
+      padding: 0 24px 32px;
+      max-width: 1400px; margin: 0 auto;
+      align-items: stretch;
+    }
+
+    /* ===== 游戏卡片 ===== */
+    .game-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0;
+      transition: all 0.25s;
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .game-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(99,130,255,0.04), transparent);
+      opacity: 0; transition: opacity 0.25s;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .game-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99,130,255,0.15);
+    }
+    .game-card:hover::before { opacity: 1; }
+
+    /* ===== 封面图片 ===== */
+    .card-cover {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      border-radius: 12px 12px 0 0;
+      background: var(--bg2);
+    }
+    .card-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .game-card:hover .card-cover img {
+      transform: scale(1.05);
+    }
+    .card-cover .cover-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--bg2), var(--bg3));
+      color: var(--text3);
+      font-size: 48px;
+    }
+    .card-cover .cover-placeholder span {
+      font-size: 12px;
+      margin-top: 8px;
+      opacity: 0.6;
+    }
+    .card-cover .cover-loading {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--bg2) 25%, var(--bg3) 50%, var(--bg2) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    .card-body {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 8px;
+      margin-bottom: 8px;
+    }
+    .game-num {
+      font-size: 11px; color: var(--text3);
+      font-family: monospace; flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .game-title {
+      font-size: 13px; font-weight: 600;
+      color: var(--text); line-height: 1.35; flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-tags {
+      display: flex; gap: 6px; flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .tag {
+      padding: 2px 8px; border-radius: 6px;
+      font-size: 11px; font-weight: 600;
+    }
+    .tag-zh { background: rgba(99,130,255,0.15); color: #a5b4ff; }
+    .tag-jp { background: rgba(239,68,68,0.15); color: #fca5a5; }
+    .tag-en { background: rgba(34,197,94,0.15); color: #86efac; }
+    .tag-ver { background: rgba(100,116,139,0.2); color: var(--text2); }
+    .tag-dlc { background: rgba(251,191,36,0.15); color: #fcd34d; }
+    .tag-format { background: rgba(6,182,212,0.15); color: #67e8f9; }
+
+    .card-info {
+      font-size: 12px; color: var(--text3);
+      margin-bottom: 12px; line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      position: relative;
+      z-index: 2;
+    }
+    .download-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; font-size: 13px; font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none; cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      position: relative;
+      z-index: 2;
+    }
+    .download-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(99,130,255,0.4);
+    }
+    .download-btn.disabled {
+      opacity: 0.5; cursor: not-allowed;
+      pointer-events: none;
+    }
+    .download-cost {
+      font-size: 11px; opacity: 0.8; font-weight: 400;
+      background: rgba(255,255,255,0.15); padding: 1px 6px;
+      border-radius: 4px;
+    }
+    .download-pwd {
+      letter-spacing: 1px; opacity: 0.9;
+    }
+
+    /* ===== 回到顶部按钮 ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 80px; right: 24px;
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--card);
+      border: 1px solid var(--border2);
+      color: var(--accent);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 90;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s;
+      pointer-events: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .back-to-top:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* ===== 加载更多 ===== */
+    .load-more {
+      text-align: center;
+      padding: 24px;
+      color: var(--text3);
+      font-size: 13px;
+    }
+    .load-more .load-spinner {
+      width: 24px; height: 24px;
+      border: 2px solid var(--border2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    /* ===== 空状态 ===== */
+    .empty-state { text-align: center; padding: 80px 24px; color: var(--text3); }
+    .empty-state .empty-icon { font-size: 64px; margin-bottom: 16px; }
+    .empty-state p { font-size: 16px; }
+
+    /* ===== 加载中 ===== */
+    .loading-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 20px;
+    }
+    .loading-spinner {
+      width: 48px; height: 48px;
+      border: 3px solid var(--border2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { color: var(--text2); font-size: 15px; }
+    .loading-sub { color: var(--text3); font-size: 13px; }
+
+    /* ===== 骨架屏 ===== */
+    .skeleton-grid {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      padding: 0 24px 32px;
+      max-width: 1400px; margin: 0 auto;
+    }
+    .skeleton-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0;
+      display: flex; flex-direction: column;
+    }
+    .skeleton-cover {
+      aspect-ratio: 16/9;
+      border-radius: 12px 12px 0 0;
+      background: linear-gradient(90deg, var(--bg2) 25%, var(--bg3) 50%, var(--bg2) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+    .skeleton-body {
+      padding: 12px 14px;
+      display: flex; flex-direction: column;
+      gap: 8px;
+    }
+    .skeleton-line {
+      height: 14px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, var(--bg3) 25%, var(--card-hover) 50%, var(--bg3) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+    .skeleton-line.w60 { width: 60%; }
+    .skeleton-line.w80 { width: 80%; }
+    .skeleton-line.w40 { width: 40%; }
+    .skeleton-line.h20 { height: 20px; }
+    .skeleton-line.h36 { height: 36px; }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ===== Toast ===== */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--card); border: 1px solid var(--border2);
+      color: var(--text); padding: 10px 20px;
+      border-radius: 10px; font-size: 14px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s; z-index: 999;
+      white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ===== 模态框通用 ===== */
+    .modal-mask {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .modal-mask.open { display: flex; }
+    .modal-box {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 18px;
+      padding: 32px;
+      width: 100%; max-width: 420px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      animation: modalIn 0.25s ease-out;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-title {
+      font-size: 20px; font-weight: 700;
+      margin-bottom: 8px; color: var(--text);
+    }
+    .modal-desc {
+      font-size: 13px; color: var(--text3);
+      margin-bottom: 24px;
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      background: none; border: none;
+      color: var(--text3); font-size: 20px;
+      cursor: pointer; padding: 4px;
+    }
+    .modal-close:hover { color: var(--text); }
+
+    /* ===== 表单 ===== */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block; font-size: 13px;
+      color: var(--text2); margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .form-input {
+      width: 100%;
+      padding: 10px 14px; border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: var(--bg2); color: var(--text);
+      font-size: 14px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus { border-color: var(--accent); }
+    .form-input::placeholder { color: var(--text3); }
+    .form-btn {
+      width: 100%; padding: 12px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; font-size: 15px; font-weight: 600;
+      border: none; cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+    .form-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .form-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .form-switch {
+      font-size: 13px; color: var(--text2);
+      text-align: center; margin-top: 16px;
+    }
+    .form-switch a {
+      color: var(--accent); cursor: pointer;
+      text-decoration: none; font-weight: 600;
+    }
+    .form-switch a:hover { text-decoration: underline; }
+    .form-error {
+      font-size: 12px; color: var(--red);
+      margin-top: 4px; display: none;
+    }
+
+    /* ===== 会员面板 ===== */
+    .member-panel {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 0 auto;
+      padding: 0 24px 48px;
+    }
+    .member-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .member-welcome {
+      font-size: 18px; font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .member-id { font-size: 13px; color: var(--text3); margin-bottom: 16px; }
+    .member-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; margin-bottom: 20px;
+    }
+    .stat-box {
+      background: var(--bg2); border-radius: 12px;
+      padding: 16px; text-align: center;
+    }
+    .stat-value {
+      font-size: 28px; font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-value.gold {
+      background: linear-gradient(135deg, var(--gold), #f59e0b);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+    .checkin-btn {
+      padding: 10px 24px; border-radius: 10px;
+      font-size: 14px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+      border: 1.5px solid var(--accent);
+      background: transparent; color: var(--accent);
+      margin-right: 12px;
+    }
+    .checkin-btn:hover { background: rgba(99,130,255,0.1); }
+    .checkin-btn:disabled {
+      opacity: 0.4; cursor: not-allowed;
+      border-color: var(--text3); color: var(--text3);
+    }
+    .checkin-btn.checked {
+      background: rgba(34,197,94,0.1);
+      border-color: var(--green); color: var(--green);
+    }
+
+    /* ===== 会员升级 ===== */
+    .upgrade-cards {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .upgrade-card {
+      background: var(--bg2); border-radius: 14px;
+      padding: 20px; text-align: center;
+      border: 1.5px solid var(--border);
+      cursor: pointer; transition: all 0.25s;
+      position: relative;
+    }
+    .upgrade-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .upgrade-card.active-plan {
+      border-color: var(--green);
+      cursor: default;
+    }
+    .upgrade-card.active-plan::after {
+      content: '当前';
+      position: absolute; top: 10px; right: 10px;
+      padding: 2px 8px; border-radius: 4px;
+      font-size: 11px; background: var(--green);
+      color: #fff; font-weight: 600;
+    }
+    .upgrade-icon { font-size: 36px; margin-bottom: 8px; }
+    .upgrade-name {
+      font-size: 18px; font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .upgrade-desc {
+      font-size: 12px; color: var(--text3);
+      line-height: 1.6; margin-bottom: 12px;
+    }
+    .upgrade-price {
+      font-size: 24px; font-weight: 800;
+      color: var(--accent);
+    }
+    .upgrade-price span { font-size: 13px; color: var(--text3); font-weight: 400; }
+    .upgrade-btn {
+      padding: 8px 20px; border-radius: 8px;
+      font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+      border: none; margin-top: 8px;
+    }
+    .upgrade-btn.vip-btn {
+      background: rgba(139,92,246,0.2); color: #c4b5fd;
+    }
+    .upgrade-btn.vip-btn:hover { background: rgba(139,92,246,0.3); }
+    .upgrade-btn.svip-btn {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #1a1f2e;
+    }
+    .upgrade-btn.svip-btn:hover { opacity: 0.9; }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 1200px) {
+      .games-grid { grid-template-columns: repeat(4, 1fr); }
+      .skeleton-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .games-grid { grid-template-columns: repeat(3, 1fr); }
+      .skeleton-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 40px 16px 24px; }
+      .filter-bar, .result-bar, .games-grid { padding-left: 16px; padding-right: 16px; }
+      .games-grid { grid-template-columns: repeat(2, 1fr); }
+      .skeleton-grid { grid-template-columns: repeat(2, 1fr); padding-left: 16px; padding-right: 16px; }
+      .nav-stats { display: none; }
+      .member-stats { grid-template-columns: repeat(3, 1fr); }
+      .upgrade-cards { grid-template-columns: 1fr; }
+      .back-to-top { bottom: 70px; right: 16px; width: 38px; height: 38px; font-size: 16px; }
+    }
+
+    /* ===== 滚动条 ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+  </style>
+</head>
+<body>
+
+<!-- 加载动画 -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div style="font-size:48px">🎮</div>
+  <div class="loading-spinner"></div>
+  <div class="loading-text">NS Switch 游戏资源站</div>
+  <div class="loading-sub">正在加载 7124 款游戏数据...</div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- 回到顶部按钮 -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">⬆</button>
+
+<!-- ==================== 登录/注册模态框 ==================== -->
+<div class="modal-mask" id="authModal">
+  <div class="modal-box" style="position:relative">
+    <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+
+    <!-- 登录表单 -->
+    <div id="loginForm">
+      <div class="modal-title">Welcome Back</div>
+      <div class="modal-desc">登录你的账号，开始下载游戏</div>
+      <div class="form-group">
+        <label class="form-label">用户名</label>
+        <input class="form-input" id="loginUser" placeholder="输入用户名" maxlength="20">
+        <div class="form-error" id="loginUserErr"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">密码</label>
+        <input class="form-input" id="loginPass" type="password" placeholder="输入密码" maxlength="32">
+        <div class="form-error" id="loginPassErr"></div>
+      </div>
+      <button class="form-btn" onclick="doLogin()">登 录</button>
+      <div class="form-switch">还没有账号？ <a onclick="showRegForm()">立即注册</a></div>
+    </div>
+
+    <!-- 注册表单 -->
+    <div id="regForm" style="display:none">
+      <div class="modal-title">Create Account</div>
+      <div class="modal-desc">注册即成为 VIP，送 20 积分，每天签到再领 10 积分</div>
+      <div class="form-group">
+        <label class="form-label">用户名</label>
+        <input class="form-input" id="regUser" placeholder="2-20个字符" maxlength="20">
+        <div class="form-error" id="regUserErr"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">密码</label>
+        <input class="form-input" id="regPass" type="password" placeholder="至少6位" maxlength="32">
+        <div class="form-error" id="regPassErr"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">确认密码</label>
+        <input class="form-input" id="regPass2" type="password" placeholder="再次输入密码" maxlength="32">
+        <div class="form-error" id="regPass2Err"></div>
+      </div>
+      <button class="form-btn" onclick="doRegister()">注 册</button>
+      <div class="form-switch">已有账号？ <a onclick="showLoginForm()">去登录</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 充值模态框 ==================== -->
+<div class="modal-mask" id="rechargeModal">
+  <div class="modal-box" style="position:relative; max-width:380px;">
+    <button class="modal-close" onclick="closeModal('rechargeModal')">✕</button>
+    <div class="modal-title">升级 SVIP</div>
+    <div class="modal-desc">解锁无限下载，畅享全部 7124 款游戏</div>
+
+    <!-- 联系管理员 -->
+    <div style="margin-top:16px;padding:14px;background:var(--bg2);border-radius:12px;border:1px solid var(--border);">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:10px;">🎮 联系客服获取密钥，请点击 QQ客服/微信客服，添加客服。</div>
+      <div style="display:flex;gap:8px;">
+        <span onclick="copyText('3905069692')" style="padding:6px 12px;border-radius:6px;background:rgba(99,130,255,0.12);color:var(--accent);font-size:12px;cursor:pointer;">QQ 客服 📋</span>
+        <span onclick="copyText('haishangshuma9527')" style="padding:6px 12px;border-radius:6px;background:rgba(34,197,94,0.12);color:var(--green);font-size:12px;cursor:pointer;">微信客服 📋</span>
+      </div>
+    </div>
+
+    <!-- 激活密钥 -->
+    <div class="key-section" style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);text-align:center;">
+      <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:12px;">
+        🔑 已获取激活密钥
+      </div>
+      <div style="display:flex;gap:8px;max-width:280px;margin:0 auto;">
+        <input type="text" id="svipKeyInput" placeholder="请输入激活密钥" maxlength="32"
+          style="flex:1;padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:13px;outline:none;">
+        <button onclick="activateSvipKey()"
+          style="padding:10px 18px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">
+          激活
+        </button>
+      </div>
+      <div id="svipKeyErr" style="font-size:12px;color:var(--red);margin-top:6px;height:18px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 会员面板模态框 ==================== -->
+<div class="modal-mask" id="memberModal">
+  <div class="modal-box" style="position:relative; max-width:500px; max-height:85vh; overflow-y:auto;">
+    <button class="modal-close" onclick="closeModal('memberModal')">✕</button>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+      <div class="member-welcome" id="memberName">-</div>
+      <button class="checkin-btn" id="checkinBtn" onclick="doCheckin()">📅 每日签到 +10</button>
+    </div>
+    <div class="member-id" id="memberId">-</div>
+
+    <div class="member-stats">
+      <div class="stat-box">
+        <div class="stat-value" id="memberPoints">0</div>
+        <div class="stat-label">当前积分</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value gold" id="memberLevel">-</div>
+        <div class="stat-label">会员等级</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="memberDownloads">0</div>
+        <div class="stat-label">累计下载</div>
+      </div>
+    </div>
+
+    <div class="upgrade-card" id="panelSvip" style="max-width:260px;margin:0 auto;cursor:pointer;" onclick="handleUpgradeClick()">
+      <div class="upgrade-icon">👑</div>
+      <div class="upgrade-name">升级 SVIP</div>
+      <div class="upgrade-desc"><strong style="color:var(--gold)">无限下载</strong><br>不消耗积分 · ¥10永久</div>
+      <div class="upgrade-price">¥10<span>/永久</span></div>
+      <div style="margin-top:12px;">
+        <button class="upgrade-btn svip-btn" style="width:100%;font-size:14px;padding:10px 0;">🚀 点击升级 SVIP</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 顶部导航 ==================== -->
+<header>
+  <a class="logo" onclick="location.reload()">
+    <div class="logo-icon">🎮</div>
+    NS Switch 资源站
+  </a>
+  <!-- 公告栏 -->
+  <div class="announcement-bar nav-announcement" id="announcementBar">
+    <span class="announcement-icon">📢</span>
+    <div class="announcement-text" id="announcementText"></div>
+    <button class="announcement-close" onclick="closeAnnouncement()">✕</button>
+  </div>
+  <div class="nav-right">
+    <div class="nav-stats">
+      <div class="nav-stat">🎯 <span id="totalCount">7124</span> 款游戏</div>
+    </div>
+    <div class="user-area" id="userArea"></div>
+  </div>
+</header>
+
+<!-- 英雄区 -->
+<div class="hero">
+  <h1>NS Switch 游戏资源站</h1>
+  <p>收录 7124 款 Switch 游戏，百度网盘直链下载，注册即送 VIP + 20 积分</p>
+
+  <!-- 搜索框 -->
+  <div class="search-wrap">
+    <input type="text" class="search-input" id="searchInput"
+      placeholder="搜索游戏名称... 如：塞尔达、马里奥、Zelda" autocomplete="off">
+    <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+    <span class="search-icon">🔍</span>
+  </div>
+</div>
+
+<!-- 筛选栏 -->
+<div class="filter-bar">
+  <span class="filter-label">语言版本：</span>
+  <button class="filter-btn active" data-lang="全部" onclick="setLang('全部')">全部</button>
+  <button class="filter-btn" data-lang="中文版" onclick="setLang('中文版')">🀄 中文版</button>
+  <button class="filter-btn" data-lang="英文版" onclick="setLang('英文版')">🔤 英文版</button>
+  <button class="filter-btn" data-lang="日文版" onclick="setLang('日文版')">🇯🇵 日文版</button>
+</div>
+
+<!-- 结果信息条 -->
+<div class="result-bar">
+  <div class="result-count">
+    找到 <strong id="resultCount">0</strong> 款游戏
+    <span id="resultSearchInfo"></span>
+  </div>
+  <select class="sort-select" id="sortSelect" onchange="applySort()">
+    <option value="default">默认排序</option>
+    <option value="title_az">名称 A→Z</option>
+    <option value="title_za">名称 Z→A</option>
+    <option value="lang">按语言分组</option>
+  </select>
+</div>
+
+<!-- 游戏网格 -->
+<div class="games-grid" id="gamesGrid"></div>
+
+<!-- 加载更多 -->
+<div class="load-more" id="loadMore" style="display:none">
+  <span class="load-spinner"></span> 加载中...
+</div>
+
+<script src="games_data.js"></script>
+<script>
+// =====================================================
+// ==================== 用户系统 =======================
+// =====================================================
+
+const DB_KEY = 'ns_site_users';
+const SESSION_KEY = 'ns_site_session';
+
+// [性能优化] 缓存 DB 对象，减少 localStorage 读写
+let _dbCache = null;
+let _dbDirty = false;
+
+function loadDB() {
+  if (_dbCache && !_dbDirty) return _dbCache;
+  try { _dbCache = JSON.parse(localStorage.getItem(DB_KEY)) || {}; }
+  catch { _dbCache = {}; }
+  _dbDirty = false;
+  return _dbCache;
+}
+function saveDB(db) {
+  _dbCache = db;
+  _dbDirty = false;
+  localStorage.setItem(DB_KEY, JSON.stringify(db));
+}
+// 标记需要重新读取（外部可能修改了 localStorage）
+function markDBDirty() { _dbDirty = true; }
+
+function getSession() {
+  try { return JSON.parse(localStorage.getItem(SESSION_KEY)); }
+  catch { return null; }
+}
+function setSession(u) { localStorage.setItem(SESSION_KEY, JSON.stringify(u)); }
+function clearSession() { localStorage.removeItem(SESSION_KEY); }
+
+function getToday() {
+  return new Date().toISOString().slice(0,10);
+}
+
+function genId() {
+  return 'u_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+}
+
+// ===== 注册 =====
+// 用户名黑名单（禁止注册的关键词，可自行补充）
+const BAD_NAMES = [
+  'admin','test','root','null','undefined','administrator','superuser',
+  'guanliyuan','admin1','admin2','admin3','test1','test2','test3',
+  'ns','switch','fangke','fake','spam','bot','robot','恶意','广告','推广'
+];
+
+async function doRegister() {
+  const user = document.getElementById('regUser').value.trim();
+  const pass = document.getElementById('regPass').value;
+  const pass2 = document.getElementById('regPass2').value;
+
+  ['regUserErr','regPassErr','regPass2Err'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
+
+  // --- 前端基础校验 ---
+  let ok = true;
+  if (user.length < 2 || user.length > 20) {
+    showErr('regUserErr', '用户名需要2-20个字符'); ok = false;
+  }
+  if (/[^a-zA-Z0-9\u4e00-\u9fff_]/.test(user)) {
+    showErr('regUserErr', '只允许中文、英文、数字、下划线'); ok = false;
+  }
+  if (/^\d+$/.test(user)) {
+    showErr('regUserErr', '用户名不能全是数字'); ok = false;
+  }
+  if (BAD_NAMES.includes(user.toLowerCase())) {
+    showErr('regUserErr', '该用户名不可用，请更换'); ok = false;
+  }
+  if (pass.length < 6) {
+    showErr('regPassErr', '密码至少6位'); ok = false;
+  }
+  if (pass !== pass2) {
+    showErr('regPass2Err', '两次密码不一致'); ok = false;
+  }
+  if (!ok) return;
+
+  // 禁用注册按钮，防止重复提交
+  const regBtn = document.querySelector('#authModal .auth-btn');
+  if (regBtn) regBtn.disabled = true;
+
+  try {
+    const resp = await fetch('/.netlify/functions/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user, pass }),
+    });
+    const data = await resp.json();
+    if (!resp.ok) {
+      showErr('regUserErr', data.error || '注册失败');
+      if (regBtn) regBtn.disabled = false;
+      return;
+    }
+
+    // 注册成功：保存用户 Session
+    setSession(data.user);
+    localStorage.setItem('ns_last_reg', Date.now().toString());
+    invalidateUserCache();
+    closeModal('authModal');
+    refreshUserUI();
+    render();
+    showToast('注册成功！已赠送 20 积分');
+  } catch (err) {
+    showErr('regUserErr', '网络错误，请稍后重试');
+  } finally {
+    const regBtn = document.querySelector('#authModal .auth-btn');
+    if (regBtn) regBtn.disabled = false;
+  }
+}
+
+// ===== 登录 =====
+async function doLogin() {
+  const user = document.getElementById('loginUser').value.trim();
+  const pass = document.getElementById('loginPass').value;
+
+  ['loginUserErr','loginPassErr'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
+
+  if (!user) { showErr('loginUserErr', '请输入用户名'); return; }
+  if (!pass) { showErr('loginPassErr', '请输入密码'); return; }
+
+  // 禁用登录按钮
+  const loginBtns = document.querySelectorAll('#authModal .auth-btn');
+  const loginBtn = loginBtns[1] || loginBtns[0];
+  if (loginBtn) loginBtn.disabled = true;
+
+  try {
+    const resp = await fetch('/.netlify/functions/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user, pass }),
+    });
+    const data = await resp.json();
+    if (!resp.ok) {
+      showErr('loginUserErr', data.error || '登录失败');
+      if (loginBtn) loginBtn.disabled = false;
+      return;
+    }
+
+    setSession(data.user);
+    invalidateUserCache();
+    closeModal('authModal');
+    refreshUserUI();
+    render();
+    showToast(`欢迎回来，${data.user.name}！`);
+  } catch (err) {
+    showErr('loginUserErr', '网络错误，请稍后重试');
+  } finally {
+    const loginBtns2 = document.querySelectorAll('#authModal .auth-btn');
+    const loginBtn2 = loginBtns2[1] || loginBtns2[0];
+    if (loginBtn2) loginBtn2.disabled = false;
+  }
+}
+
+function doLogout() {
+  clearSession();
+  invalidateUserCache();
+  refreshUserUI();
+  render();
+  showToast('已退出登录');
+}
+
+// ===== 签到 =====
+function doCheckin() {
+  const u = getLoggedInUser();
+  if (!u) return;
+
+  const today = getToday();
+  if (u.lastCheckin === today) {
+    showToast('今天已经签过到了，明天再来！');
+    return;
+  }
+
+  u.lastCheckin = today;
+  if (u.points < 999) u.points = Math.min(u.points + 10, 999);
+  saveUser(u);
+  setSession(u);
+  invalidateUserCache();
+  refreshUserUI();
+  // [Bug修复] 签到不需要重新渲染整个游戏列表
+  if (u.points >= 999) {
+    showToast('签到成功！积分已达上限 999');
+  } else {
+    showToast('签到成功！+10 积分');
+  }
+}
+
+// ===== 会员过期检查 =====
+function checkVipExpire(u) {
+  // 当前所有会员等级均为永久，无需检查过期
+}
+
+// ===== 充值 =====
+function buySvip() {
+  showToast('请使用支付宝扫码支付 ¥10，支付后联系管理员开通 SVIP');
+}
+
+function handleUpgradeClick() {
+  const u = getLoggedInUser();
+  if (u && u.role === 'svip') {
+    showToast('您已是SVIP用户');
+    return;
+  }
+  closeModal('memberModal');
+  openModal('rechargeModal');
+}
+
+// ===== 复制文本 [Bug修复] 增加 fallback 兼容 HTTP 环境 =====
+function copyText(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => showToast('复制完成')).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showToast('复制完成');
+  } catch {
+    showToast('复制失败，请手动复制：' + text);
+  }
+  document.body.removeChild(ta);
+}
+
+// ===== SVIP 激活密钥 =====
+// 【密钥管理说明】
+// 激活码从后台管理系统生成，存储在 localStorage 中。
+// 后台地址: admin.html，密码: haishangshuma7513
+// 格式: NS-SVIP-XXXXXXXX（8位大写字母或数字）
+
+// 从后台加载激活码
+function loadAdminKeys() {
+  try {
+    const keys = JSON.parse(localStorage.getItem('ns_admin_keys') || '[]');
+    return keys.filter(k => !k.used).map(k => k.code);
+  } catch {
+    return [];
+  }
+}
+
+// 硬编码备用激活码（可手动添加）
+const MANUAL_KEYS = [
+  // 'NS-SVIP-A1B2C3',  // 示例：手动添加的激活码
+];
+
+// 已使用的激活码
+const USED_SVIP_KEYS = new Set(
+  JSON.parse(localStorage.getItem('ns_used_svip_keys') || '[]')
+);
+
+function activateSvipKey() {
+  const input = document.getElementById('svipKeyInput');
+  const errEl = document.getElementById('svipKeyErr');
+  const key = input.value.trim().toUpperCase();
+
+  if (!key) {
+    errEl.textContent = '请输入激活密钥';
+    return;
+  }
+
+  // 验证密钥格式
+  if (!/^NS-SVIP-[A-Z0-9]{8}$/.test(key)) {
+    errEl.textContent = '密钥格式错误，应为 NS-SVIP-XXXXXXXX';
+    return;
+  }
+
+  if (USED_SVIP_KEYS.has(key)) {
+    errEl.textContent = '该密钥已被使用';
+    return;
+  }
+
+  // 检查密钥是否有效（从后台或手动列表）
+  const validKeys = [...loadAdminKeys(), ...MANUAL_KEYS];
+  if (!validKeys.includes(key)) {
+    errEl.textContent = '密钥无效，请检查或联系管理员';
+    return;
+  }
+
+  const u = getLoggedInUser();
+  if (!u) {
+    errEl.textContent = '请先登录账号';
+    openModal('authModal');
+    return;
+  }
+
+  // 标记密钥已使用（前台记录）
+  USED_SVIP_KEYS.add(key);
+  localStorage.setItem('ns_used_svip_keys', JSON.stringify([...USED_SVIP_KEYS]));
+
+  // 同步更新后台的激活码状态
+  syncKeyUsage(key, u.name);
+
+  // 升级用户
+  u.role = 'svip';
+  u.points = 999;
+  u.vipExpire = null;
+  saveUser(u);
+  setSession(u);
+  invalidateUserCache();
+  refreshUserUI();
+
+  input.value = '';
+  errEl.textContent = '';
+  closeModal('rechargeModal');
+  showToast('🎉 SVIP 激活成功！无限下载已解锁');
+}
+
+// ===== 同步激活码使用状态到后台 =====
+function syncKeyUsage(key, username) {
+  try {
+    const keys = JSON.parse(localStorage.getItem('ns_admin_keys') || '[]');
+    const keyObj = keys.find(k => k.code === key);
+    if (keyObj) {
+      keyObj.used = true;
+      keyObj.usedBy = username;
+      keyObj.usedAt = new Date().toISOString();
+      localStorage.setItem('ns_admin_keys', JSON.stringify(keys));
+    }
+  } catch (e) {
+    console.error('同步激活码状态失败:', e);
+  }
+}
+
+// ===== 下载消耗积分 [Bug修复] 先扣积分再打开链接，防止用户不下载白嫖积分 =====
+function downloadGame(gameId, url) {
+  const u = getLoggedInUser();
+  if (!u) {
+    openModal('authModal');
+    return;
+  }
+
+  // SVIP 无限下载
+  if (u.role === 'svip') {
+    u.totalDownloads++;
+    saveUser(u);
+    setSession(u);
+    invalidateUserCache();
+    doDownload(url);
+    return;
+  }
+
+  // 普通用户和VIP消耗积分
+  if (u.points < 2) {
+    showToast('积分不足！请签到领取积分，或升级 SVIP 无限下载');
+    return;
+  }
+
+  // 先扣积分，再打开下载链接
+  u.points -= 2;
+  u.totalDownloads++;
+  saveUser(u);
+  setSession(u);
+  invalidateUserCache();
+  refreshUserUI();
+
+  doDownload(url);
+  showToast('下载成功！消耗 2 积分，剩余 ' + u.points + ' 积分');
+}
+
+function doDownload(url) {
+  window.open(url, '_blank');
+}
+
+// ===== 用户状态缓存 =====
+let _cachedUser = null;
+let _cachedUserTime = 0;
+const USER_CACHE_TTL = 2000;
+
+function getLoggedInUser() {
+  const now = Date.now();
+  if (_cachedUser && now - _cachedUserTime < USER_CACHE_TTL) {
+    return _cachedUser;
+  }
+  const s = getSession();
+  if (!s) { _cachedUser = null; return null; }
+  const db = loadDB();
+  const u = db[s.name];
+  if (!u) { clearSession(); _cachedUser = null; return null; }
+  checkVipExpire(u);
+  _cachedUser = u;
+  _cachedUserTime = now;
+  return u;
+}
+
+function invalidateUserCache() {
+  _cachedUser = null;
+  _cachedUserTime = 0;
+}
+
+function saveUser(u) {
+  const db = loadDB();
+  db[u.name] = u;
+  saveDB(db);
+}
+
+function showErr(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function showRegForm() {
+  document.getElementById('loginForm').style.display = 'none';
+  document.getElementById('regForm').style.display = 'block';
+}
+function showLoginForm() {
+  document.getElementById('regForm').style.display = 'none';
+  document.getElementById('loginForm').style.display = 'block';
+}
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// 点击蒙层关闭
+document.querySelectorAll('.modal-mask').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+});
+
+// [Bug修复] ESC 键关闭模态框
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-mask.open').forEach(m => m.classList.remove('open'));
+  }
+});
+
+// ===== 渲染用户区域 =====
+function refreshUserUI() {
+  const area = document.getElementById('userArea');
+  const u = getLoggedInUser();
+
+  if (!u) {
+    area.innerHTML = `
+      <button class="nav-btn" onclick="openModal('authModal')">登录</button>
+      <button class="nav-btn primary" onclick="showRegForm();openModal('authModal')">注册</button>
+    `;
+    return;
+  }
+
+  const roleBadge = u.role === 'svip'
+    ? '<span class="vip-badge svip" title="已是 SVIP">SVIP</span>'
+    : `<span class="vip-badge vip" onclick="handleUpgradeClick()" title="点击升级到 SVIP" style="cursor:pointer;">VIP</span>`;
+
+  area.innerHTML = `
+    ${roleBadge}
+    <div class="points-badge">🪙 ${u.points}</div>
+    <button class="nav-btn" onclick="openMemberPanel()" style="font-size:12px;padding:5px 10px">${u.name}</button>
+    <button class="nav-btn" onclick="doLogout()" style="font-size:12px;padding:5px 10px">退出</button>
+  `;
+}
+
+function openMemberPanel() {
+  const u = getLoggedInUser();
+  if (!u) return;
+
+  document.getElementById('memberName').textContent = u.role === 'svip'
+    ? '👑 ' + u.name
+    : '💎 ' + u.name;
+  document.getElementById('memberId').textContent = 'ID: ' + u.id;
+
+  document.getElementById('memberPoints').textContent = u.points;
+  document.getElementById('memberLevel').textContent = u.role === 'svip' ? 'SVIP' : 'VIP';
+  document.getElementById('memberDownloads').textContent = u.totalDownloads;
+
+  const today = getToday();
+  const btn = document.getElementById('checkinBtn');
+  if (u.lastCheckin === today) {
+    btn.textContent = '✅ 今日已签到';
+    btn.disabled = true;
+    btn.classList.add('checked');
+  } else {
+    btn.textContent = '📅 每日签到 +10';
+    btn.disabled = false;
+    btn.classList.remove('checked');
+  }
+
+  const ps = document.getElementById('panelSvip');
+  ps.classList.remove('active-plan');
+  if (u.role === 'svip') ps.classList.add('active-plan');
+
+  openModal('memberModal');
+}
+
+
+// =====================================================
+// ==================== 游戏系统 =======================
+// =====================================================
+
+const state = {
+  query: '',
+  lang: '全部',
+  sort: 'default',
+  page: 1,
+  pageSize: 15,
+  filtered: [],
+  loadingMore: false,
+  hasMore: true,
+};
+
+// ===== 公告栏 =====
+const ANNOUNCEMENT_KEY = 'ns_site_announcement_closed';
+function initAnnouncement() {
+  const closedDate = localStorage.getItem(ANNOUNCEMENT_KEY);
+  const today = new Date().toDateString();
+  if (closedDate === today) {
+    document.getElementById('announcementBar').style.display = 'none';
+    return;
+  }
+  const msgs = [
+    '🎉 注册成为 VIP 即可获取积分免费下载游戏！',
+    '👑 仅需 ¥10 升级 SVIP，永久无限下载所有游戏！',
+    '💖 感谢所有 SVIP 用户的支持，你们是本站持续运营的动力！',
+  ];
+  const text = msgs.join('　　　　');
+  document.getElementById('announcementText').innerHTML =
+    `<span class="marquee">${text}　　　　${text}</span>`;
+}
+function closeAnnouncement() {
+  const bar = document.getElementById('announcementBar');
+  bar.style.transition = 'all 0.3s ease';
+  bar.style.opacity = '0';
+  bar.style.maxHeight = '0';
+  bar.style.padding = '0 24px';
+  bar.style.overflow = 'hidden';
+  localStorage.setItem(ANNOUNCEMENT_KEY, new Date().toDateString());
+  setTimeout(() => bar.style.display = 'none', 300);
+}
+
+// ===== 骨架屏 =====
+function showSkeleton() {
+  const grid = document.getElementById('gamesGrid');
+  let html = '';
+  for (let i = 0; i < 15; i++) {
+    html += `
+      <div class="skeleton-card">
+        <div class="skeleton-cover"></div>
+        <div class="skeleton-body">
+          <div class="skeleton-line w60"></div>
+          <div class="skeleton-line h20"></div>
+          <div class="skeleton-line w80"></div>
+          <div class="skeleton-line h36" style="margin-top:auto"></div>
+        </div>
+      </div>`;
+  }
+  grid.innerHTML = html;
+}
+
+// ===== 初始化 =====
+window.addEventListener('DOMContentLoaded', () => {
+  refreshUserUI();
+  initAnnouncement();
+
+  // 显示骨架屏
+  showSkeleton();
+
+  // 事件委托：下载按钮
+  document.getElementById('gamesGrid').addEventListener('click', (e) => {
+    const dlBtn = e.target.closest('.download-btn');
+    if (dlBtn) {
+      e.stopPropagation();
+      const gid = Number(dlBtn.dataset.gid);
+      const url = dlBtn.dataset.url;
+      downloadGame(gid, url);
+      return;
+    }
+  });
+
+  // 设置滚动加载
+  setupScrollLoad();
+
+  // [Bug修复] 使用 requestAnimationFrame 确保 DOM 就绪后再渲染
+  setTimeout(() => {
+    document.getElementById('loadingOverlay').style.display = 'none';
+    state.filtered = GAMES_DATA;
+    // [Bug修复] 首次渲染不滚动到顶部（用户本来就在顶部）
+    render(true, false);
+  }, 600);
+});
+
+// ===== 搜索（防抖优化） =====
+const searchInput = document.getElementById('searchInput');
+const searchClear = document.getElementById('searchClear');
+let _searchTimer = null;
+
+searchInput.addEventListener('input', (e) => {
+  state.query = e.target.value.trim();
+  searchClear.style.display = state.query ? 'block' : 'none';
+  state.page = 1;
+  // [性能优化] 300ms 防抖，避免每次输入都过滤 7000+ 条数据
+  clearTimeout(_searchTimer);
+  _searchTimer = setTimeout(() => applyFilters(), 300);
+});
+
+// [Bug修复] 搜索框按 Enter 键直接触发搜索
+searchInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    clearTimeout(_searchTimer);
+    applyFilters();
+  }
+});
+
+// [Bug修复] 登录/注册表单按 Enter 键提交
+document.getElementById('loginPass').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') doLogin();
+});
+document.getElementById('regPass2').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') doRegister();
+});
+// SVIP 密钥输入框按 Enter 激活
+document.getElementById('svipKeyInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') activateSvipKey();
+});
+
+// ===== 筛选 =====
+function setLang(lang) {
+  state.lang = lang;
+  state.page = 1;
+  document.querySelectorAll('[data-lang]').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  applyFilters();
+}
+
+function applySort() {
+  state.sort = document.getElementById('sortSelect').value;
+  state.page = 1;
+  applyFilters();
+}
+
+function clearSearch() {
+  state.query = '';
+  searchInput.value = '';
+  searchClear.style.display = 'none';
+  state.page = 1;
+  clearTimeout(_searchTimer);
+  applyFilters();
+}
+
+// ===== 过滤 + 排序 =====
+function applyFilters() {
+  let data = GAMES_DATA;
+  if (state.query) {
+    const q = state.query.toLowerCase();
+    data = data.filter(g =>
+      g.title.toLowerCase().includes(q) ||
+      g.version_info.toLowerCase().includes(q)
+    );
+  }
+  if (state.lang === '英文版') {
+    data = data.filter(g => g.lang === '英文版' || g.lang === '欧美版');
+  } else if (state.lang !== '全部') {
+    data = data.filter(g => g.lang === state.lang);
+  }
+  if (state.sort === 'title_az') data = [...data].sort((a,b) => a.title.localeCompare(b.title, 'zh'));
+  else if (state.sort === 'title_za') data = [...data].sort((a,b) => b.title.localeCompare(a.title, 'zh'));
+  else if (state.sort === 'lang') data = [...data].sort((a,b) => a.lang.localeCompare(b.lang));
+
+  state.filtered = data;
+  render(true);
+}
+
+// ===== 渲染 =====
+// [Bug修复] 增加 skipScroll 参数，首次加载不滚动
+function render(reset = true, scroll = true) {
+  const { filtered, page, pageSize, query } = state;
+  const total = filtered.length;
+  const start = 0;
+  const end = page * pageSize;
+  const items = filtered.slice(start, end);
+
+  state.hasMore = end < total;
+
+  document.getElementById('resultCount').textContent = total.toLocaleString();
+  document.getElementById('resultSearchInfo').textContent = query ? `（搜索：「${escHtml(query)}」）` : '';
+
+  const grid = document.getElementById('gamesGrid');
+  if (items.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1">
+        <div class="empty-icon">🔍</div>
+        <p>没有找到相关游戏，换个关键词试试？</p>
+      </div>`;
+    document.getElementById('loadMore').style.display = 'none';
+    return;
+  }
+
+  if (reset) {
+    grid.innerHTML = items.map(g => renderCard(g)).join('');
+    if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    // [Bug修复] 追加模式：正确计算起始索引，避免重复渲染
+    const prevEnd = (page - 1) * pageSize;
+    const newItems = filtered.slice(prevEnd, end);
+    if (newItems.length === 0) {
+      state.loadingMore = false;
+      return;
+    }
+    const frag = document.createDocumentFragment();
+    const tmp = document.createElement('div');
+    tmp.innerHTML = newItems.map(g => renderCard(g)).join('');
+    while (tmp.firstChild) frag.appendChild(tmp.firstChild);
+    grid.appendChild(frag);
+  }
+
+  document.getElementById('loadMore').style.display = state.hasMore ? 'block' : 'none';
+  state.loadingMore = false;
+}
+
+function getLangTag(lang) {
+  const map = { '中文版': 'zh', '日文版': 'jp', '英文版': 'en', '欧美版': 'en' };
+  return map[lang] || 'en';
+}
+
+// [性能优化] 在渲染批次中缓存用户状态，避免每个卡片都调用 getLoggedInUser
+function renderCard(g) {
+  const langTag = getLangTag(g.lang);
+  const displayLang = (g.lang === '欧美版') ? '英文版' : g.lang;
+  const verTag = g.version ? `<span class="tag tag-ver">${escHtml(g.version)}</span>` : '';
+
+  // [UI增强] 显示 DLC 和格式标签
+  const dlcTag = g.has_dlc ? '<span class="tag tag-dlc">DLC</span>' : '';
+  const formatTag = `<span class="tag tag-format">${escHtml(g.format)}</span>`;
+
+  const u = getLoggedInUser();
+  const isSvip = u && u.role === 'svip';
+  const costLabel = isSvip ? 'SVIP 免费' : '-2积分';
+
+  const safeUrl = escAttr(g.url);
+
+  // [封面图片] 生成封面 HTML
+  const coverHtml = g.cover
+    ? `<div class="card-cover"><img src="${escAttr(g.cover)}" alt="${escHtml(g.title)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'cover-placeholder\\'>🎮<span>封面加载失败</span></div>'"></div>`
+    : `<div class="card-cover"><div class="cover-placeholder">🎮<span>暂无封面</span></div></div>`;
+
+  return `
+  <div class="game-card">
+    ${coverHtml}
+    <div class="card-body">
+      <div class="card-header">
+        <span class="game-num">#${String(g.id).padStart(4,'0')}</span>
+        <span class="game-title">${escHtml(g.title)}</span>
+      </div>
+      <div class="card-tags">
+        <span class="tag tag-${langTag}">${displayLang}</span>
+        ${verTag}
+        ${dlcTag}
+        ${formatTag}
+      </div>
+      <div class="card-info">${escHtml(g.version_info)}</div>
+      <div class="card-footer">
+        <button class="download-btn" data-gid="${g.id}" data-url="${safeUrl}">
+          ☁️ 百度网盘下载
+          <span class="download-cost">${costLabel}</span>
+        </button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ===== 滚动加载（节流 + passive） =====
+let _scrollTimer = null;
+function setupScrollLoad() {
+  window.addEventListener('scroll', () => {
+    if (state.loadingMore || !state.hasMore) return;
+    if (_scrollTimer) return;
+    _scrollTimer = setTimeout(() => { _scrollTimer = null; }, 100);
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = window.innerHeight;
+    if (scrollTop + clientHeight >= scrollHeight - 200) {
+      state.loadingMore = true;
+      state.page++;
+      // [Bug修复] 使用 setTimeout 替代 requestAnimationFrame，确保状态更新后再渲染
+      setTimeout(() => render(false), 50);
+    }
+  }, { passive: true });
+}
+
+// ===== 回到顶部按钮显隐 =====
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('backToTop');
+  if (window.scrollY > 400) {
+    btn.classList.add('visible');
+  } else {
+    btn.classList.remove('visible');
+  }
+}, { passive: true });
+
+// ===== Toast 队列（防重叠） =====
+let _toastTimer = null;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  clearTimeout(_toastTimer);
+  el.classList.remove('show');
+  // 短暂延迟确保动画重置
+  requestAnimationFrame(() => {
+    el.textContent = msg;
+    el.classList.add('show');
+    _toastTimer = setTimeout(() => el.classList.remove('show'), 2500);
+  });
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(s) {
+  return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+</body>
+</html>
