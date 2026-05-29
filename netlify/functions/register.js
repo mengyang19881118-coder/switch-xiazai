@@ -32,7 +32,7 @@ exports.handler = async (event) => {
   if (/^\d+$/.test(user)) return { statusCode: 400, headers, body: JSON.stringify({ error: '用户名不能全是数字' }) };
 
   try {
-    const store = getStore('ns-users', { siteID: SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
+    const store = getStore('ns-users', { siteID: SITE_ID, token: 'nfp_rDcVTKeEg595oD3ovWu7H58j47JQ7yXUaddd' });
     const existingRaw = await store.get(user);
     if (existingRaw) return { statusCode: 409, headers, body: JSON.stringify({ error: '用户名已存在' }) };
 

@@ -25,7 +25,7 @@ exports.handler = async (event) => {
   if (!username || !updates) return { statusCode: 400, headers, body: JSON.stringify({ error: '参数不完整' }) };
 
   try {
-    const store = getStore('ns-users', { siteID: SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
+    const store = getStore('ns-users', { siteID: SITE_ID, token: 'nfp_rDcVTKeEg595oD3ovWu7H58j47JQ7yXUaddd' });
     const userDataRaw = await store.get(username);
     if (!userDataRaw) return { statusCode: 404, headers, body: JSON.stringify({ error: '用户不存在' }) };
 

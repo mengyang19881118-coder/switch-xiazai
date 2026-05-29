@@ -25,7 +25,7 @@ exports.handler = async (event) => {
   if (!user || !pass) return { statusCode: 400, headers, body: JSON.stringify({ error: '用户名和密码不能为空' }) };
 
   try {
-    const store = getStore('ns-users', { siteID: SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
+    const store = getStore('ns-users', { siteID: SITE_ID, token: 'nfp_rDcVTKeEg595oD3ovWu7H58j47JQ7yXUaddd' });
     const userDataRaw = await store.get(user);
     if (!userDataRaw) return { statusCode: 401, headers, body: JSON.stringify({ error: '用户不存在' }) };
 
