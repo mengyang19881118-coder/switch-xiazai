@@ -1,6 +1,6 @@
 const { getStore } = require('@netlify/blobs');
 
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -31,7 +31,7 @@ exports.handler = async (event, context) => {
   if (/^\d+$/.test(user)) return { statusCode: 400, headers, body: JSON.stringify({ error: '用户名不能全是数字' }) };
 
   try {
-    const store = getStore('ns-users', { siteID: context.siteId, token: context.token });
+    const store = getStore('ns-users');
     const existingRaw = await store.get(user);
     if (existingRaw) return { statusCode: 409, headers, body: JSON.stringify({ error: '用户名已存在' }) };
 
