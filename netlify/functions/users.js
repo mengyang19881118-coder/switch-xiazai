@@ -1,6 +1,7 @@
 const { getStore } = require('@netlify/blobs');
+const SITE_ID = 'd2164136-15a1-4c7f-8b87-68fbf1790d17';
 
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -16,7 +17,7 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    const store = getStore('ns-users', { siteID: context.siteId, token: context.token });
+    const store = getStore('ns-users', { siteID: SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
     const { blobs } = await store.list();
     const users = {};
     for (const blob of blobs) {

@@ -1,6 +1,7 @@
 const { getStore } = require('@netlify/blobs');
+const SITE_ID = 'd2164136-15a1-4c7f-8b87-68fbf1790d17';
 
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -24,7 +25,7 @@ exports.handler = async (event, context) => {
   if (!username) return { statusCode: 400, headers, body: JSON.stringify({ error: '缺少用户名' }) };
 
   try {
-    const store = getStore('ns-users', { siteID: context.siteId, token: context.token });
+    const store = getStore('ns-users', { siteID: SITE_ID, token: process.env.NETLIFY_AUTH_TOKEN });
     const userDataRaw = await store.get(username);
     if (!userDataRaw) return { statusCode: 404, headers, body: JSON.stringify({ error: '用户不存在' }) };
 
